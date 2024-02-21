@@ -1,0 +1,64 @@
+<div class="card bg-light mb-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+        <button class="btn btn-primary my-2" routerLink="/afiliados/form">crear</button>
+        <div class="alert alert-info" *ngIf="lista?.length==0">
+            No hay afiliados en el sistema.
+        </div>
+        <table class="table table-hover table-striped" *ngIf="lista?.length>0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>foto</th>
+                    <th>nombre</th>
+                    <th>apellido</th>
+                    <th>email</th>
+                    <th>creado en</th>
+                    <th>examenes</th>
+                    <th>editar</th>
+                    <th>eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let afiliado of lista">
+                    <td>{{afiliado.id}}</td>
+                    <td>
+                        <img *ngIf="afiliado.fotoHashCode"
+                        [src]="baseEndpoint + '/uploads/img/' + afiliado.id + '?fotoHashCode=' + afiliado.fotoHashCode" 
+                        class="img-thumbnail rounded"
+                        style="width: 64px; cursor: pointer;">
+
+                        <img *ngIf="!afiliado.fotoHashCode"
+                        [src]="'/assets/images/no-usuario.png'" 
+                        class="img-thumbnail rounded"
+                        style="width: 64px; cursor: pointer;">
+                    </td>
+                    <td>{{afiliado.nombre}}</td>
+                    <td>{{afiliado.apellido}}</td>
+                    <td>{{afiliado.email}}</td>
+                    <td>{{afiliado.createAt | date: 'yyyy/MM/dd'}}</td>
+                    <td><button class="btn btn-primary btn-sm"
+                        [routerLink]="['/afiliados/responder-examen', afiliado.id]">responder</button></td>
+                    <td><button class="btn btn-secondary btn-sm" 
+                        [routerLink]="['/afiliados/form', afiliado.id]">
+                        editar
+                    </button></td>
+                    <td><button class="btn btn-danger btn-sm" 
+                        (click)="eliminar(afiliado)">
+                        eliminar
+                    </button></td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator [length]="totalRegistros"
+              [pageSize]="totalPorPagina"
+              [pageIndex]="paginaActual"
+              [pageSizeOptions]="pageSizeOptions"
+              (page) ="paginar($event)"
+              showFirstLastButtons
+              class="float-left mx-2">
+            </mat-paginator>
+       </div>
+  </div>
+  
+
