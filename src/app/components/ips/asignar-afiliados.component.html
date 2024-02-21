@@ -1,7 +1,7 @@
 <mat-card>
-  <mat-card-header *ngIf="curso">
+  <mat-card-header *ngIf="ips">
     <mat-card-title>
-      Alumnos del curso {{curso.nombre}}
+      Afiliados del ips {{ips.nombre}}
     </mat-card-title>
   </mat-card-header>
 
@@ -11,7 +11,7 @@
       <mat-tab label="Asignar Afiliados">
 
         <mat-form-field class="mx-3" style="width: 50%;">
-          <input matInput placeholder="Buscar Alumnos" (keyup)="filtrar($event.target.value)">
+          <input matInput placeholder="Buscar Afiliados" (keyup)="filtrar($event.target.value)">
         </mat-form-field>
 
         <table mat-table [dataSource]="afiliadosAsignar" class="mat-elevation-z8 mx-3" style="width: 75%;">
@@ -51,7 +51,7 @@
 
       </mat-tab>
 
-      <mat-tab label="Alumnos">
+      <mat-tab label="Afiliados">
 
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 m-3" style="width: 75%;">
 
@@ -79,12 +79,12 @@
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
             <td mat-cell *matCellDef="let afiliado">
               <button mat-mini-fab color="warn" 
-              (click)="eliminarAlumno(afiliado)">x</button>
+              (click)="eliminarAfiliado(afiliado)">x</button>
             </td>
           </ng-container>
           
-          <tr mat-header-row *matHeaderRowDef="mostrarColumnasAlumnos"></tr>
-          <tr mat-row *matRowDef="let afiliado; columns: mostrarColumnasAlumnos;"></tr>
+          <tr mat-header-row *matHeaderRowDef="mostrarColumnasAfiliados"></tr>
+          <tr mat-row *matRowDef="let afiliado; columns: mostrarColumnasAfiliados;"></tr>
         </table>
         <mat-paginator 
         [pageSizeOptions]="pageSizeOptions"
